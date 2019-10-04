@@ -1,5 +1,5 @@
 import pandas as pd
-import os.path
+import os
 from json import dumps
 from flask import Flask
 from flask import jsonify, redirect, render_template
@@ -35,12 +35,22 @@ def get_data_from_archive(month, year):
         print(res)
         return dumps(res)
     else:
-        return False
+        return 'False'
 
 
 @app.route('/history', methods=['GET'])
 def history():
-    pass
+    dir = os.listdir('./archive')
+    res = {}
+    for filename in dir:
+        filename = filename[:-5]
+        date = filename.split('_')
+        if date[1] in res:
+            res[date[1]].append(date[0])
+        else:
+            res[date[1]] = [date[0]]
+    print(res)
+    return dumps(res)
 
 
 if __name__ == '__main__':
