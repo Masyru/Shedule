@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { Container, Navbar, Nav, Button, Col, Row } from "react-bootstrap"
 
 function Month(number) {
-  const month = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+  const mon = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-  return month[number - 1]
+  return mon[number - 1]
 }
 
 const ToggleButton = () => {
@@ -49,16 +49,15 @@ export default class App extends Component{
             main.setState({response: data})
             console.log("Recorded!");
           });
-        }
-      )
+        })
       .catch(function(err) {
-        console.log('Fetch Error :-S', err);
+        console.log('Fetch Error :-S', error);
       });
 
   }
 
   componentDidMount(){
-    this.getIformation();
+      this.getIformation();
   }
 
   render(){
@@ -80,7 +79,7 @@ export default class App extends Component{
 
           <Col lg={12} md={12}>
 
-            {this.state.response.length > 0 ? null : null}
+            {this.state.response.length > 0 ? this.state.response : null}
 
           </Col>
 

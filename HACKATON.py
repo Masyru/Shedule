@@ -27,7 +27,7 @@ def get_data():
         print(2)
 
 
-@app.route('/get_data/<int:month>.<int:year>', methods=['GET'])
+@app.route('/<int:month>.<int:year>', methods=['GET'])
 def get_data_from_archive(month, year):
     res = [{'year': year, 'month': month}]
     if os.path.exists(f'./archive/{month}_{year}.xlsx'):
@@ -35,7 +35,7 @@ def get_data_from_archive(month, year):
         print(res)
         return dumps(res)
     else:
-        return 'False'
+        return False
 
 
 @app.route('/history', methods=['GET'])
@@ -54,4 +54,4 @@ def history():
 
 
 if __name__ == '__main__':
-    app.run(port=8000, host='127.0.0.1')
+    app.run(port=8080, host='127.0.0.1')
