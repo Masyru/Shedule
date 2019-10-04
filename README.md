@@ -1,2 +1,2 @@
-# Shedule
+# Schedule
 Hacaton
