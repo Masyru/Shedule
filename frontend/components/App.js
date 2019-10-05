@@ -16,11 +16,17 @@ function height_and_width() {
       return [h, w]
 }
 
-const CreateTable = (num) => {
+const CreateTable = (num, mont) => {
   console.log(num);
+
+  let mon = mont;
   let array = new Array();
-  for (var i = 0; i < num; i++) {
-    array.push(<th key={i} scope="col" style={{ minWidth: '120px', padding: '4px' }}>{(i + 1) % 31} сентября</th>)
+  for (var i = 0; i < num + 1; i++) {
+    if(i == 30){
+      mon += 1
+      continue
+    }
+    array.push(<th key={i} scope="col" style={{ minWidth: '120px', padding: '4px' }}>{(i + 1) % 31} {Month(mon)}</th>)
   }
   return array
 }
@@ -86,7 +92,7 @@ export default class App extends Component{
     let main =
       <Container>
         <Row className="mt-5">
-            <Col lg={10} md={10}
+            <Col lg={12} md={12}
               style={{
                 overflow: "auto",
                 maxHeight: (height_and_width()[0] - 100).toString() + "px",
@@ -121,43 +127,19 @@ export default class App extends Component{
             }
 
             </Col>
-            <Col md={2} lg={2}>
-            {Object.keys(this.state.response).length == 3 ?
-              <table>
 
-                  <thead class="thead-light">
-                    <tr style={{textAlign: "center"}}>
-                      <th scope="col" style={{minWidth: "30px", padding: "4px", minHeight: "33px"}}>
-                        Рабочее время
-                      </th>
-                      <th scope="col" style={{minWidth: "30px", padding: "4px", minHeight: "33px"}}>
-                        Разница
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      this.state.response.table.map((data, ind) => <tr key={ind}>
-                                                                    <td>{data.sum_hours}</td>
-                                                                    <td>{data.delta}</td>
-                                                                   </tr>)
-                    }
-                  </tbody>
-              </table>
-              :
-              null
-            }
-          </Col>
         </Row>
         <Row>
           <Navbar expand="lg" variant="light" bg="light" fixed="bottom">
             <Navbar.Brand>Расписание:</Navbar.Brand>
             <Nav className="mr-auto">
-              <Nav.Link className="ml-3">Сгенерировать расписание на следующий месяц</Nav.Link>
-              <Nav.Link style={{
+              <Nav.Link className="ml-3" onClick={() => alert("Где алгоритм?")}>Сгенерировать расписание на следующий месяц</Nav.Link>
+              <Nav.Link
+              onClick={() => alert("Нет истории")}
+              style={{
                 position: "absolute",
                 right: "10%"
-              }}>Просмотреть историю</Nav.Link>
+              }} >Просмотреть историю</Nav.Link>
             </Nav>
           </Navbar>
 

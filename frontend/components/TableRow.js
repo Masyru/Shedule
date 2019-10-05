@@ -4,7 +4,7 @@ import { Container, Navbar, Nav, Button, Col, Row } from "react-bootstrap"
 
 function Color(str) {
   switch (str) {
-    case "8":
+    case 8 || 10:
       return "#f8fc03"
     case "О":
       return "#fca103"
