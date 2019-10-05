@@ -29,12 +29,12 @@ export default class App extends Component{
       response: []
     }
 
-    this.getIformation = this.getIformation.bind(this);
+    this.getInformation = this.getInformation.bind(this);
   }
 
-  getIformation(){
+  getInformation(){
     const main = this;
-    fetch('/get_data')
+    fetch('/getScheduleTable')
       .then(
         function(response) {
           if (response.status !== 200) {
@@ -57,13 +57,13 @@ export default class App extends Component{
   }
 
   componentDidMount(){
-      this.getIformation();
+      console.log("DidMount");
   }
 
   render(){
     let main =
       <Container>
-
+        <Row>
           <Navbar expand="lg" variant="light" bg="light" fixed="bottom">
             <Navbar.Brand>Расписание:</Navbar.Brand>
             <Nav className="mr-auto">
@@ -76,13 +76,14 @@ export default class App extends Component{
           </Navbar>
 
           <ToggleButton />
-
+      </Row>
+      <Row>
           <Col lg={12} md={12}>
 
             {this.state.response.length > 0 ? this.state.response : null}
 
           </Col>
-
+      </Row>
 
       </Container>;
 

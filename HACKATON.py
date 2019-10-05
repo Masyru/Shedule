@@ -10,17 +10,17 @@ app = Flask(__name__, template_folder='./frontend', static_folder='./frontend')
 now = datetime.now()
 
 
-@app.route('/')
-def index():
+@app.route('/', methods=["GET"])
+def main_page():
     return render_template('index.html')
 
 
-@app.route('/get_data', methods=['GET'])
+@app.route('/getScheduleTable', methods=['GET'])
 def get_data():
-    year, month = now.year, now.month
-    res = [{'year': year, 'month': month}]
-    if os.path.exists(f'./archive/{month}_{year}.xlsx'):
-        res += make_result(year, month)
+    y, m = now.year, now.month
+    res = [{'year': y, 'month': m}]
+    if os.path.exists(f'./archive/{m}_{y}.xlsx'):
+        res += make_result(y, m)
         print(res)
         return dumps(res)
     else:
@@ -54,4 +54,4 @@ def history():
 
 
 if __name__ == '__main__':
-    app.run(port=8080, host='127.0.0.1')
+    app.run(port=5000, host='127.0.0.1')
