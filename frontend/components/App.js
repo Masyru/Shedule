@@ -20,7 +20,7 @@ const CreateTable = (num) => {
   console.log(num);
   let array = new Array();
   for (var i = 0; i < num; i++) {
-    array.push(<th key={i} scope="Col" style={{ minWidth: '100px' }}>{(i + 1) % 31} сентября</th>)
+    array.push(<th key={i} scope="col" style={{ minWidth: '120px', padding: '4px' }}>{(i + 1) % 31} сентября</th>)
   }
   return array
 }
@@ -86,39 +86,68 @@ export default class App extends Component{
     let main =
       <Container>
         <Row className="mt-5">
-            <Col lg={12} md={12}
+            <Col lg={10} md={10}
               style={{
                 overflow: "auto",
-                maxHeight: height_and_width()[0],
-                maxWidth: height_and_width()[1],
+                maxHeight: (height_and_width()[0] - 100).toString() + "px",
               }}
             >
             {Object.keys(this.state.response).length == 3 ?
               <table
-
+                class="table table-hover" style={{borderLeft: "1px solid grey"}}
               >
-
-                <tr style={{textAlign: "center"}}>
-                  <th scope="col" style={{height: "30px", width: "30px"}}>
-                    №
-                  </th>
-                  <th scope="col">
-                    Сотрудник
-                  </th>
-                  <th scope="col">
-                    Тип
-                  </th>
-                  {
-                    CreateTable(this.state.response.table.length)
-                  }
-                </tr>
-                {this.state.response.table.map((obj, ind) => <TableRow key={ind} data={obj}/>)}
+                <thead class="thead-light">
+                  <tr style={{textAlign: "center"}}>
+                    <th scope="col" style={{minWidth: "30px", padding: "4px", minHeight: "33px"}}>
+                      №
+                    </th>
+                    <th scope="col" style={{minWidth: "120px", padding: "4px"}}>
+                      Сотрудник
+                    </th>
+                    <th scope="col" style={{minWidth: "35px", padding: "4px"}}>
+                      Тип
+                    </th>
+                    {
+                      CreateTable(this.state.response.table[0].data.length)
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.response.table.map((obj, ind) => <TableRow key={ind} data={obj}/>)}
+                </tbody>
               </table>
               :
               <div>НЕТ РАСПИСАНИЯ НА ЭТОТ МЕСЯЦ (Создайте его)</div>
             }
 
             </Col>
+            <Col md={2} lg={2}>
+            {Object.keys(this.state.response).length == 3 ?
+              <table>
+
+                  <thead class="thead-light">
+                    <tr style={{textAlign: "center"}}>
+                      <th scope="col" style={{minWidth: "30px", padding: "4px", minHeight: "33px"}}>
+                        Рабочее время
+                      </th>
+                      <th scope="col" style={{minWidth: "30px", padding: "4px", minHeight: "33px"}}>
+                        Разница
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      this.state.response.table.map((data, ind) => <tr key={ind}>
+                                                                    <td>{data.sum_hours}</td>
+                                                                    <td>{data.delta}</td>
+                                                                   </tr>)
+                    }
+                  </tbody>
+              </table>
+              :
+              null
+            }
+          </Col>
         </Row>
         <Row>
           <Navbar expand="lg" variant="light" bg="light" fixed="bottom">
