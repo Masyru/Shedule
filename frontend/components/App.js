@@ -58,6 +58,7 @@ export default class App extends Component{
 
   componentDidMount(){
       console.log("DidMount");
+      this.getInformation();
   }
 
   render(){

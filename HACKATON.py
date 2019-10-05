@@ -18,9 +18,10 @@ def main_page():
 @app.route('/getScheduleTable', methods=['GET'])
 def get_data():
     y, m = now.year, now.month
-    res = [{'year': y, 'month': m}]
+    print(y, m)
+    res = {'currentYear': y, 'currentMonth': m}
     if os.path.exists(f'./archive/{m}_{y}.xlsx'):
-        res += make_result(y, m)
+        res["table"] = make_result(y, m)
         print(res)
         return dumps(res)
     else:
