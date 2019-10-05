@@ -22,7 +22,7 @@ def get_data():
     print(y, m)
     res = {'currentYear': y, 'currentMonth': m}
     if os.path.exists(f'./archive/{m}_{y}.xlsx'):
-        res["table"] = make_result(y, m)
+        res["table"], res['first_date'] = make_result(y, m)
         pprint(res)
         return dumps(res)
     else:
