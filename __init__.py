@@ -5,6 +5,7 @@ from flask import Flask
 from flask import jsonify, redirect, render_template
 from datetime import datetime
 from functions import make_result
+from pprint import pprint
 
 app = Flask(__name__, template_folder='./frontend', static_folder='./frontend')
 now = datetime.now()
@@ -22,7 +23,7 @@ def get_data():
     res = {'currentYear': y, 'currentMonth': m}
     if os.path.exists(f'./archive/{m}_{y}.xlsx'):
         res["table"] = make_result(y, m)
-        print(res)
+        pprint(res)
         return dumps(res)
     else:
         print(2)

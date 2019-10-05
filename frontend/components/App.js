@@ -109,7 +109,7 @@ export default class App extends Component{
                     Тип
                   </th>
                   {
-                    CreateTable(this.state.response.table.length)
+                    CreateTable(this.state.response.table[0].data.length)
                   }
                 </tr>
                 {this.state.response.table.map((obj, ind) => <TableRow key={ind} data={obj}/>)}
